@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dota2Wiki</string>
+    <string name="hero_name">hero_name</string>
+    <string name="hero_id">hero_id</string>
+</resources>
