@@ -2,4 +2,16 @@
     <string name="app_name">Dota2Wiki</string>
     <string name="hero_name">hero_name</string>
     <string name="hero_id">hero_id</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hero_name_text">HERO_NAME</string>
+    <string name="health_text">Здоровье:</string>
+    <string name="mana_text">Мана:</string>
+    <string name="primary_attribute_text">Основной аттрибут:</string>
+    <string name="attack_type_text">Тип атаки:</string>
+    <string name="move_speed">Скорость бега:</string>
+    <string name="info_health_text">info_health</string>
+    <string name="info_mana_text">info_mana</string>
+    <string name="primary_attribute_info_text">primary_attribute_info</string>
+    <string name="info_attack_type_text">info_attack_type</string>
+    <string name="move_speed_info_text">move_speed_info</string>
 </resources>

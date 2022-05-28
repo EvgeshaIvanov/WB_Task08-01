@@ -1,4 +1,4 @@
-package com.example.dota2wiki
+package com.example.dota2wiki.ui.heroes
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +19,6 @@ class MainViewModel : ViewModel() {
     @OptIn(ExperimentalStdlibApi::class)
     private val jsonAdapter = moshi.adapter<MutableList<HeroData>>()
 
-
     val heroDataList = MutableLiveData<List<HeroData>>()
 
     fun getHeroes(sUrl: String): List<HeroData>? {
@@ -30,7 +29,7 @@ class MainViewModel : ViewModel() {
                 try {
                     heroData = jsonAdapter.fromJson(result)!!
                     withContext(Dispatchers.Main) {
-                        heroDataList.value = heroData
+                        heroDataList.value = heroData!!
                     }
                 } catch (err: Error) {
                     print("Error when parsing JSON: " + err.localizedMessage)

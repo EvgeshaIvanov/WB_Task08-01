@@ -5,7 +5,12 @@
       <map>
         <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/font-v26/font_text.xml" value="0.2712962962962963" />
         <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/font/font_text.xml" value="0.2712962962962963" />
+        <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/activity_detail_hero.xml" value="0.33" />
+        <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/activity_heroes_all.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/fragment_blank.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/fragment_detail_hero.xml" value="0.25" />
+        <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/fragment_heroes_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/item_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/item_list_agi.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/most1/AndroidStudioProjects/Dota2Wiki/app/src/main/res/layout/item_list_int.xml" value="0.67" />

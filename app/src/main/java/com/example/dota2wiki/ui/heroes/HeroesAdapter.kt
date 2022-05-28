@@ -1,15 +1,20 @@
-package com.example.dota2wiki
+package com.example.dota2wiki.ui.heroes
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.dota2wiki.MainActivity.Companion.BASE_URL
+import coil.transform.BlurTransformation
+import com.example.dota2wiki.R
+import com.example.dota2wiki.ui.heroes.HeroesActivity.Companion.BASE_URL
 import com.example.dota2wiki.model.HeroData
+
 
 class HeroesAdapter : RecyclerView.Adapter<HeroesViewHolder>() {
 
+    var onHeroClickLister: ((HeroData) -> Unit)? = null
 
     var heroesList = emptyList<HeroData>()
         @SuppressLint("NotifyDataSetChanged")
@@ -18,9 +23,8 @@ class HeroesAdapter : RecyclerView.Adapter<HeroesViewHolder>() {
             notifyDataSetChanged()
         }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroesViewHolder {
-        val layout = when(viewType){
+        val layout = when (viewType) {
             VIEW_TYPE_AGILITY -> R.layout.item_list_agi
             VIEW_TYPE_INTELLECT -> R.layout.item_list_int
             VIEW_TYPE_STRENGTH -> R.layout.item_list_str
@@ -35,7 +39,9 @@ class HeroesAdapter : RecyclerView.Adapter<HeroesViewHolder>() {
         val hero = heroesList[position]
 
         with(holder) {
-
+            heroCard.setOnClickListener {
+                onHeroClickLister?.invoke(hero)
+            }
             heroName.text = hero.name
             heroIconImage.load(BASE_URL + hero.iconHero)
         }
@@ -43,21 +49,18 @@ class HeroesAdapter : RecyclerView.Adapter<HeroesViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         val hero = heroesList[position]
-        return when (hero.primary_attribute){
+        return when (hero.primaryAttribute) {
             AGILITY -> VIEW_TYPE_AGILITY
             STRENGTH -> VIEW_TYPE_STRENGTH
             INTELLECT -> VIEW_TYPE_INTELLECT
             else -> throw RuntimeException("Unknown attribute $this")
         }
-
     }
 
     override fun getItemCount(): Int = heroesList.size
 
-    private fun String.setFormatToSearch(): String{
-        return this.lowercase().replace(' ', '_')
-    }
-    companion object{
+    companion object {
+
         const val VIEW_TYPE_AGILITY = 1
         const val VIEW_TYPE_STRENGTH = 2
         const val VIEW_TYPE_INTELLECT = 3
