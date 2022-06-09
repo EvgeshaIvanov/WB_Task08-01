@@ -3,7 +3,8 @@ package com.example.dota2wiki.ui.heroes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dota2wiki.model.HeroData
+import com.example.dota2wiki.data.FileManager
+import com.example.dota2wiki.data.HeroData
 import com.example.dota2wiki.network.RepositoryImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
@@ -11,8 +12,13 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 class MainViewModel : ViewModel() {
+
+    private val fileManager = FileManager()
+
+    val fileHeroData: File = File.createTempFile("HeroesDataStorage", ".txt")
 
     private var moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
@@ -27,7 +33,11 @@ class MainViewModel : ViewModel() {
             val result = RepositoryImpl.getRequest(sUrl)
             if (result != null) {
                 try {
-                    heroData = jsonAdapter.fromJson(result)!!
+                    fileManager.writeToFile(fileHeroData, result)
+                    val heroDataStorage = fileManager.readFromFile(fileHeroData)
+                    heroData = if (heroDataStorage.isNotEmpty()) {
+                        jsonAdapter.fromJson(heroDataStorage)
+                    } else jsonAdapter.fromJson(result)
                     withContext(Dispatchers.Main) {
                         heroDataList.value = heroData!!
                     }
@@ -40,4 +50,5 @@ class MainViewModel : ViewModel() {
         }
         return heroData
     }
+
 }

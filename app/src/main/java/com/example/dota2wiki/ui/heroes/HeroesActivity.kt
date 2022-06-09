@@ -1,5 +1,6 @@
 package com.example.dota2wiki.ui.heroes
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.dota2wiki.databinding.ActivityHeroesAllBinding
 import com.example.dota2wiki.ui.detailHero.DetailHeroActivity
+import java.io.File
 
 
 class HeroesActivity : AppCompatActivity() {
@@ -31,6 +33,12 @@ class HeroesActivity : AppCompatActivity() {
 
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.fileHeroData.delete()
+        Log.i("OnStop", "OnStop")
+    }
+
     private fun setupRecyclerView() {
         heroesAdapter = HeroesAdapter()
         binding.rvHeroes.apply {
@@ -48,6 +56,9 @@ class HeroesActivity : AppCompatActivity() {
         }
     }
 
+    private fun deleteTempFiles(file: File) {
+
+    }
 
     companion object {
         const val HERO_DATA = "HERO_DATA"

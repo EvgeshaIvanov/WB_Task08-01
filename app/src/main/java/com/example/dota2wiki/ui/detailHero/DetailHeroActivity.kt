@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import coil.load
 import com.example.dota2wiki.databinding.ActivityDetailHeroBinding
-import com.example.dota2wiki.model.HeroData
+import com.example.dota2wiki.data.HeroData
 import com.example.dota2wiki.ui.heroes.HeroesActivity.Companion.BASE_URL
 import com.example.dota2wiki.ui.heroes.HeroesActivity.Companion.HERO_DATA
 
