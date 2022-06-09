@@ -56,10 +56,6 @@ class HeroesActivity : AppCompatActivity() {
         }
     }
 
-    private fun deleteTempFiles(file: File) {
-
-    }
-
     companion object {
         const val HERO_DATA = "HERO_DATA"
         const val BASE_URL = "https://api.opendota.com"
