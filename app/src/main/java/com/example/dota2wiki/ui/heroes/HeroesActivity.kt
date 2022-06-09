@@ -36,7 +36,7 @@ class HeroesActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         viewModel.fileHeroData.delete()
-        Log.i("OnStop", "OnStop")
+
     }
 
     private fun setupRecyclerView() {
