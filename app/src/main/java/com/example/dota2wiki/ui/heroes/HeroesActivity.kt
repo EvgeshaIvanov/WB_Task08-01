@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.dota2wiki.databinding.ActivityHeroesAllBinding
 import com.example.dota2wiki.ui.detailHero.DetailHeroActivity
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 
 class HeroesActivity : AppCompatActivity() {
@@ -30,6 +32,7 @@ class HeroesActivity : AppCompatActivity() {
         viewModel.heroDataList.observe(this) {
             heroesAdapter.heroesList = it
         }
+        setFile()
 
     }
 
@@ -54,6 +57,18 @@ class HeroesActivity : AppCompatActivity() {
             intent.putExtra(HERO_DATA, it)
             startActivity(intent)
         }
+    }
+    //TODO стоит ли прокидывать?
+    fun setFile() {
+        val path = applicationContext.filesDir
+        val directory = File(path, "HeroDataStorage")
+        directory.mkdirs()
+        val file = File(directory, "AllHeroes.txt")
+        val text = viewModel.fileHeroData.toString()
+        FileOutputStream(file).use {
+            it.write(text.toByteArray())
+        }
+        FileInputStream(file).bufferedReader().use { it.readText() }
     }
 
     companion object {
