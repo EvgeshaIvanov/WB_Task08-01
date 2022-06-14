@@ -15,7 +15,10 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 class MainViewModel : ViewModel() {
-
+    /*
+    переделать логику определения хранилища:
+    TODO сделать отдельный репозиторий (убрать туда Моши) и прокинуть во viewmodel
+     */
     private val fileManager = FileManager()
 
     val fileHeroData: File = File.createTempFile("HeroesDataStorage", ".txt")
