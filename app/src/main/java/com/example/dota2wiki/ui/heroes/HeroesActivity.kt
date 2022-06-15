@@ -28,19 +28,12 @@ class HeroesActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupRecyclerView()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        viewModel.getHeroes(FULL_URL)
+        viewModel.getHeroesDataFromStorage(FULL_URL)
         viewModel.heroDataList.observe(this) {
             heroesAdapter.heroesList = it
         }
-        setFile()
-
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.fileHeroData.delete()
-
-    }
 
     private fun setupRecyclerView() {
         heroesAdapter = HeroesAdapter()
@@ -57,18 +50,6 @@ class HeroesActivity : AppCompatActivity() {
             intent.putExtra(HERO_DATA, it)
             startActivity(intent)
         }
-    }
-    //TODO стоит ли прокидывать?
-    fun setFile() {
-        val path = applicationContext.filesDir
-        val directory = File(path, "HeroDataStorage")
-        directory.mkdirs()
-        val file = File(directory, "AllHeroes.txt")
-        val text = viewModel.fileHeroData.toString()
-        FileOutputStream(file).use {
-            it.write(text.toByteArray())
-        }
-        FileInputStream(file).bufferedReader().use { it.readText() }
     }
 
     companion object {

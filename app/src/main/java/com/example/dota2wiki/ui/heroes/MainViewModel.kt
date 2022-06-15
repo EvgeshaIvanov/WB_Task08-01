@@ -3,55 +3,52 @@ package com.example.dota2wiki.ui.heroes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dota2wiki.data.FileManager
 import com.example.dota2wiki.data.HeroData
-import com.example.dota2wiki.network.RepositoryImpl
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapter
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.example.dota2wiki.repository.HeroesRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
+
+const val FILE_NAME = "HeroesLocalData.txt"
 
 class MainViewModel : ViewModel() {
-    /*
-    переделать логику определения хранилища:
-    TODO сделать отдельный репозиторий (убрать туда Моши) и прокинуть во viewmodel
-     */
-    private val fileManager = FileManager()
 
-    val fileHeroData: File = File.createTempFile("HeroesDataStorage", ".txt")
-
-    private var moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-
-    @OptIn(ExperimentalStdlibApi::class)
-    private val jsonAdapter = moshi.adapter<MutableList<HeroData>>()
+    private val heroesRepositoryImpl = HeroesRepositoryImpl()
 
     val heroDataList = MutableLiveData<List<HeroData>>()
 
-    fun getHeroes(sUrl: String): List<HeroData>? {
-        var heroData: MutableList<HeroData>? = null
+    fun getHeroesDataFromStorage(sUrl: String) {
+        if (heroesRepositoryImpl.isExistFileInLocalStorage(FILE_NAME)) {
+            getHeroFromLocalStorage()
+        } else {
+            getHeroesDataFromRemoteStorage(sUrl)
+        }
+    }
+
+    private fun getHeroFromLocalStorage() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = RepositoryImpl.getRequest(sUrl)
+            val list = heroesRepositoryImpl.readHeroesFromLocalData(FILE_NAME)
+            val pes = heroesRepositoryImpl.readFromJson(list)
+            heroDataList.postValue(pes)
+        }
+    }
+
+
+    private fun getHeroesDataFromRemoteStorage(sUrl: String): List<HeroData>? {
+        var heroData: List<HeroData>? = null
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = heroesRepositoryImpl.apiRequest(sUrl)
+            val result = response?.let { heroesRepositoryImpl.readFromJson(it) }
             if (result != null) {
-                try {
-                    fileManager.writeToFile(fileHeroData, result)
-                    val heroDataStorage = fileManager.readFromFile(fileHeroData)
-                    heroData = if (heroDataStorage.isNotEmpty()) {
-                        jsonAdapter.fromJson(heroDataStorage)
-                    } else jsonAdapter.fromJson(result)
-                    withContext(Dispatchers.Main) {
-                        heroDataList.value = heroData!!
-                    }
-                } catch (err: Error) {
-                    print("Error when parsing JSON: " + err.localizedMessage)
+                withContext(Dispatchers.Main) {
+                    heroData = result
+                    heroesRepositoryImpl.saveHeroes(FILE_NAME, response)
+                    heroDataList.value = heroData!!
                 }
-            } else {
-                print("Error: Get request returned no response")
             }
         }
         return heroData
     }
+
 
 }
