@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.dota2wiki.R
-import com.example.dota2wiki.ui.heroes.HeroesActivity.Companion.BASE_URL
 import com.example.dota2wiki.data.HeroData
+import com.example.dota2wiki.ui.detailHero.HeroesListFragment.Companion.BASE_URL
 
 
 class HeroesAdapter : RecyclerView.Adapter<HeroesViewHolder>() {

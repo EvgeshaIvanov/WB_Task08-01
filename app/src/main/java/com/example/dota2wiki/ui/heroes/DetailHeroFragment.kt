@@ -1,31 +1,36 @@
-package com.example.dota2wiki.ui.detailHero
+package com.example.dota2wiki.ui.heroes
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import coil.load
-import com.example.dota2wiki.databinding.ActivityDetailHeroBinding
 import com.example.dota2wiki.data.HeroData
-import com.example.dota2wiki.ui.heroes.HeroesActivity.Companion.BASE_URL
-import com.example.dota2wiki.ui.heroes.HeroesActivity.Companion.HERO_DATA
+import com.example.dota2wiki.databinding.FragmentDetailHeroBinding
+import com.example.dota2wiki.ui.detailHero.HeroesListFragment.Companion.BASE_URL
+import com.example.dota2wiki.ui.detailHero.HeroesListFragment.Companion.HERO_DATA
 
-class DetailHeroActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDetailHeroBinding
+class DetailHeroFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityDetailHeroBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private lateinit var binding: FragmentDetailHeroBinding
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentDetailHeroBinding.inflate(inflater, container, false)
         detailHeroInfo()
+        return binding.root
     }
 
     private fun detailHeroInfo() {
-        val hero = intent.getParcelableExtra<HeroData>(HERO_DATA)!!
+        val hero = arguments?.getParcelable<HeroData>(HERO_DATA)!!
         binding.apply {
-            heroAvatarImage.load(BASE_URL + hero.imageHero){
-                size(width = 300 , 250)
+            heroAvatarImage.load(BASE_URL + hero.imageHero) {
+                size(width = 300, 250)
                 crossfade(250)
             }
             heroName.text = hero.name
@@ -35,6 +40,8 @@ class DetailHeroActivity : AppCompatActivity() {
             setRanged(hero.attackType.toString())
             moveSpeedInfo.text = hero.moveSpeed
         }
+
+
     }
 
     private fun setAttribute(attribute: String) {
@@ -55,7 +62,6 @@ class DetailHeroActivity : AppCompatActivity() {
     }
 
     companion object {
-
         const val INT_ATTRIBUTE = "int"
         const val AGI_ATTRIBUTE = "agi"
         const val STR_ATTRIBUTE = "str"

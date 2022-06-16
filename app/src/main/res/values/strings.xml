@@ -14,4 +14,7 @@
     <string name="primary_attribute_info_text">primary_attribute_info</string>
     <string name="info_attack_type_text">info_attack_type</string>
     <string name="move_speed_info_text">move_speed_info</string>
+    <string name="name_dev">Eugene</string>
+    <string name="tg_link">https://t.me/EvgeshaOG</string>
+    <string name="data_of_create">16.06.2022</string>
 </resources>

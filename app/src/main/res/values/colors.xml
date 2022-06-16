@@ -11,5 +11,6 @@
     <color name="blue">#3498db</color>
     <color name="red">#c0392b</color>
     <color name="dota2background">#381e1c</color>
+    <color name="dota2toolbar">#231312</color>
     <color name="grey">#c8d6e5</color>
 </resources>

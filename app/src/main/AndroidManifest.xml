@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dota2Wiki">
         <activity
-            android:name=".ui.detailHero.DetailHeroActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.heroes.HeroesActivity"
             android:exported="true">
             <intent-filter>

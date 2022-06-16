@@ -4,8 +4,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class HeroData(
     @Json(name = "id")
@@ -26,44 +27,6 @@ data class HeroData(
     val attackType: String?,
     @Json(name = "move_speed")
     val moveSpeed : String?
-): Parcelable{
-    constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
-    ) {
-    }
+): Parcelable
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(name)
-        parcel.writeString(imageHero)
-        parcel.writeString(iconHero)
-        parcel.writeString(primaryAttribute)
-        parcel.writeString(health)
-        parcel.writeString(mana)
-        parcel.writeString(attackType)
-        parcel.writeString(moveSpeed)
-    }
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<HeroData> {
-        override fun createFromParcel(parcel: Parcel): HeroData {
-            return HeroData(parcel)
-        }
-
-        override fun newArray(size: Int): Array<HeroData?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
