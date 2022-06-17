@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.dota2wiki.R
 import com.example.dota2wiki.databinding.FragmentAboutBinding
-import com.example.dota2wiki.ui.detailHero.HeroesListFragment
+import com.example.dota2wiki.ui.heroes.HeroesActivity.Companion.STACK_NAME
+import com.example.dota2wiki.ui.heroes.HeroesListFragment
 
 
 class AboutFragment : Fragment() {
@@ -23,12 +24,8 @@ class AboutFragment : Fragment() {
     ): View {
         binding = FragmentAboutBinding.inflate(inflater, container, false)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container_fragment, HeroesListFragment())
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit()
+            parentFragmentManager.popBackStack(STACK_NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
-
         return binding.root
     }
 }

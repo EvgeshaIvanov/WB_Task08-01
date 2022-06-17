@@ -1,4 +1,4 @@
-package com.example.dota2wiki.ui.heroes
+package com.example.dota2wiki.ui.detailHero
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,8 @@ import android.widget.TextView
 import coil.load
 import com.example.dota2wiki.data.HeroData
 import com.example.dota2wiki.databinding.FragmentDetailHeroBinding
-import com.example.dota2wiki.ui.detailHero.HeroesListFragment.Companion.BASE_URL
-import com.example.dota2wiki.ui.detailHero.HeroesListFragment.Companion.HERO_DATA
+import com.example.dota2wiki.ui.heroes.HeroesListFragment.Companion.BASE_URL
+import com.example.dota2wiki.ui.heroes.HeroesListFragment.Companion.HERO_DATA
 
 
 class DetailHeroFragment : Fragment() {

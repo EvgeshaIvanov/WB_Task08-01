@@ -1,4 +1,4 @@
-package com.example.dota2wiki.ui.detailHero
+package com.example.dota2wiki.ui.heroes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.dota2wiki.R
 import com.example.dota2wiki.databinding.FragmentHeroesListBinding
-import com.example.dota2wiki.ui.heroes.DetailHeroFragment
-import com.example.dota2wiki.ui.heroes.HeroesAdapter
-import com.example.dota2wiki.ui.heroes.MainViewModel
+import com.example.dota2wiki.ui.detailHero.DetailHeroFragment
 
 
 class HeroesListFragment : Fragment() {
@@ -52,12 +50,16 @@ class HeroesListFragment : Fragment() {
             val detailHeroFragment = DetailHeroFragment()
             val bundle = Bundle().apply { putParcelable(HERO_DATA, hero) }
             detailHeroFragment.arguments = bundle
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container_fragment, detailHeroFragment)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit()
+            openFragment(detailHeroFragment)
         }
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.container_fragment, fragment)
+            .addToBackStack(null)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit()
     }
 
     companion object {
