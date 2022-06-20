@@ -2,6 +2,7 @@ package com.example.dota2wiki.network
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.io.IOException
 import java.net.URL
 
 class ApiService {
@@ -15,8 +16,8 @@ class ApiService {
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
             result = response.body?.string()
-        } catch (err: Error) {
-            print("Error when executing get request: " + err.localizedMessage)
+        } catch (e: IOException) {
+            print("Error when executing get request: " + e.localizedMessage)
         }
         return result
     }

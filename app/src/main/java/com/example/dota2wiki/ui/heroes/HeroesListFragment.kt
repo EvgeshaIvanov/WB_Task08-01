@@ -27,13 +27,18 @@ class HeroesListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHeroesListBinding.inflate(inflater, container, false)
-        setupRecyclerView()
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         viewModel.getHeroesDataFromStorage(FULL_URL)
         viewModel.heroDataList.observe(viewLifecycleOwner) {
             heroesAdapter.heroesList = it
         }
-        return binding.root
+
     }
 
     private fun setupRecyclerView() {

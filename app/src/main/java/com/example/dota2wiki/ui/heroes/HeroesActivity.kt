@@ -19,10 +19,14 @@ class HeroesActivity : AppCompatActivity() {
         binding = ActivityHeroesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        if (savedInstanceState == null) {
+            openFragment(HeroesListFragment(), null)
+        }
         binding.aboutBtn.setOnClickListener {
             openFragment(AboutFragment(), STACK_NAME)
         }
-        openFragment(HeroesListFragment(), null)
+
     }
 
     private fun openFragment(fragment: Fragment, stackName: String?) {
